@@ -1,21 +1,8 @@
 .movie-list-container {
-  padding: 2rem;
   background: #141414;
   min-height: 100vh;
   color: #fff;
   width: 95vw;
-}
-
-.search-bar {
-  margin-bottom: 2rem;
-
-  input {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
 }
 
 .movie-grid {
@@ -24,7 +11,8 @@
   gap: 2rem;
 }
 
-.loading-spinner, .error-message {
+.loading-spinner,
+.error-message {
   text-align: center;
   font-size: 1.2rem;
   padding: 2rem;
