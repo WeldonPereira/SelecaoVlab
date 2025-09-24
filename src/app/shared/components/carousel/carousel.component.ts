@@ -1,5 +1,14 @@
-import { Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import {
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  Component,
+  AfterViewInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 export interface CarouselItem {
   id: number;
@@ -17,7 +26,7 @@ export interface CarouselItem {
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule],
 })
 export class CarouselComponent implements AfterViewInit {
   @Input() title!: string;
@@ -32,7 +41,8 @@ export class CarouselComponent implements AfterViewInit {
   @Output() prevSlideEvent = new EventEmitter<void>();
   @Output() nextSlideEvent = new EventEmitter<void>();
 
-  @ViewChild('carouselContainer', { static: false }) carouselContainer!: ElementRef;
+  @ViewChild('carouselContainer', { static: false })
+  carouselContainer!: ElementRef;
 
   ngAfterViewInit() {
     this.updateNavigation();
@@ -57,7 +67,8 @@ export class CarouselComponent implements AfterViewInit {
   private updateNavigation() {
     const container = this.carouselContainer.nativeElement;
     this.canNavigateLeft = container.scrollLeft > 0;
-    this.canNavigateRight = container.scrollLeft < container.scrollWidth - container.clientWidth;
+    this.canNavigateRight =
+      container.scrollLeft < container.scrollWidth - container.clientWidth;
   }
 
   getPosterUrl(imgSrc: string): string {
