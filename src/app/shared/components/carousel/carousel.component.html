@@ -6,7 +6,7 @@
     </a>
   </div>
   <div class="carousel">
-    <button aria-label="Previous" type="button" [disabled]="!canNavigateLeft" (click)="prevSlide()" class="carousel__nav carousel__nav--left">
+    <button aria-label="Previous" type="button"(click)="prevSlide()" class="carousel__nav carousel__nav--left">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M17.9 23.2L6.1 12 17.9.8"></path>
       </svg>
@@ -30,15 +30,24 @@
 
             <!-- Default Carousel -->
             @if (isDefaultCarousel) {
-              <div>
-                <h2 class="card__name">{{ item.title }}</h2>
-                <div class="card__rating">
-                  <div class="card__stars">
-                    <div [style.width.%]="item.rating"></div>
-                  </div>
-                  <div class="card__vote">{{ item.vote }}</div>
-                </div>
-              </div>
+              <div class="card__content">
+  <h2 class="card__name">{{ item.title }}</h2>
+
+  <div class="card__rating">
+    <div class="card__stars">
+      <div [style.width.%]="item.rating"></div>
+    </div>
+    <div class="card__vote">{{ item.vote }}</div>
+  </div>
+
+  <button type="button" class="card__btn" (click)="addToMarathon(item)">
+    <svg viewBox="0 0 24 24">
+      <path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/>
+    </svg>
+    <span>Maratona</span>
+  </button>
+</div>
+
             }
 
             <!-- Cast Carousel -->
@@ -63,7 +72,7 @@
       }
     </div>
 
-    <button aria-label="Next" type="button" [disabled]="!canNavigateRight" (click)="nextSlide()" class="carousel__nav carousel__nav--right">
+    <button aria-label="Next" type="button" (click)="nextSlide()" class="carousel__nav carousel__nav--right">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M6.1 23.2L17.9 12 6.1.8"></path>
       </svg>
