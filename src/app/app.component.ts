@@ -4,11 +4,12 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MovieFacade } from './features/movies/services/movie.facade';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { MarathonDropdownComponent } from '@shared/components/marathon/marathon-dropdown.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule, CommonModule],
+  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, MarathonDropdownComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
