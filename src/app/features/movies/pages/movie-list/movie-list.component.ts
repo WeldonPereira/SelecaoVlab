@@ -44,11 +44,8 @@ export class MovieListComponent implements OnInit {
   }
 
   private loadMovieCategories() {
-    // Load popular movies
     this.facade.loadPopularMovies();
 
-    // For demo purposes, we'll use the same data for different categories
-    // In a real app, you'd have separate API calls for each category
     this.facade.movies$.subscribe((state) => {
       if (state.movies.length > 0) {
         const movies = state.movies.map((movie) => ({
@@ -56,14 +53,32 @@ export class MovieListComponent implements OnInit {
           title: movie.title,
           imgSrc: movie.poster_path,
           link: `/movie/${movie.id}`,
-          rating: (movie.vote_average / 10) * 100, // Convert to percentage for star rating
+          rating: (movie.vote_average / 10) * 100,
           vote: movie.vote_average,
+          releaseDate: movie.release_date,
+          duration: 0,
         }));
 
         this.popularMovies = movies;
-        this.topRatedMovies = movies.slice(0, 10);
-        this.upcomingMovies = movies.slice(10, 20);
-        this.nowPlayingMovies = movies.slice(20, 30);
+
+        movies.forEach((m) => {
+          this.facade.loadMovieDetails(m.id).subscribe((details) => {
+            m.duration = details.runtime;
+          });
+        });
+
+        this.topRatedMovies = [...movies]
+          .sort((a, b) => b.vote - a.vote)
+          .slice(0, 20);
+
+        this.upcomingMovies = [...movies]
+          .filter((movie) => new Date(movie.releaseDate) <= new Date())
+          .sort(
+            (a, b) =>
+              new Date(b.releaseDate).getTime() -
+              new Date(a.releaseDate).getTime()
+          )
+          .slice(0, 20);
       }
     });
   }
