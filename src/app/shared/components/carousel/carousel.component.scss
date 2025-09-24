@@ -1,6 +1,7 @@
 .listing {
-  margin-bottom: 3rem;
   font-family: "Inter", sans-serif;
+  padding: 2rem 1rem 2rem 0;
+  background: #141414;
 
   &__head {
     display: flex;
@@ -164,6 +165,39 @@
   &__vote {
     font-size: 0.85rem;
     color: #aaa;
+  }
+
+  /* botão + Maratona */
+  &__btn {
+    margin-top: 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    background: #e50914;
+    transition: background 0.25s ease, transform 0.2s ease;
+
+    &:hover {
+      background: #f6121d;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
   }
 }
 
