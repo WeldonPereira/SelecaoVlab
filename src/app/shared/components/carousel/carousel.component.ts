@@ -6,9 +6,11 @@ import {
   ElementRef,
   Component,
   AfterViewInit,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MarathonService } from '../../../features/movies/services/marathon.service';
 
 export interface CarouselItem {
   id: number;
@@ -19,6 +21,7 @@ export interface CarouselItem {
   rating?: number;
   vote?: number;
   character?: string;
+  duration?: number;
 }
 
 @Component({
@@ -33,8 +36,6 @@ export class CarouselComponent implements AfterViewInit {
   @Input() items: CarouselItem[] = [];
   @Input() isExplore = false;
   @Input() exploreLink = '';
-  @Input() canNavigateLeft = false;
-  @Input() canNavigateRight = false;
   @Input() isDefaultCarousel = true;
   @Input() isCastCarousel = false;
 
@@ -42,26 +43,34 @@ export class CarouselComponent implements AfterViewInit {
   @Output() nextSlideEvent = new EventEmitter<void>();
 
   @ViewChild('carouselContainer', { static: false })
-  carouselContainer!: ElementRef;
+  carouselContainer!: ElementRef<HTMLDivElement>;
+
+  canNavigateLeft = false;
+  canNavigateRight = false;
+
+  private marathonService = inject(MarathonService);
 
   ngAfterViewInit() {
     this.updateNavigation();
+    this.carouselContainer.nativeElement.addEventListener('scroll', () => {
+      this.updateNavigation();
+    });
   }
 
   prevSlide() {
-    if (this.canNavigateLeft) {
-      this.carouselContainer.nativeElement.scrollLeft -= 300;
-      this.updateNavigation();
-      this.prevSlideEvent.emit();
-    }
+    this.carouselContainer.nativeElement.scrollBy({
+      left: -300,
+      behavior: 'smooth',
+    });
+    this.prevSlideEvent.emit();
   }
 
   nextSlide() {
-    if (this.canNavigateRight) {
-      this.carouselContainer.nativeElement.scrollLeft += 300;
-      this.updateNavigation();
-      this.nextSlideEvent.emit();
-    }
+    this.carouselContainer.nativeElement.scrollBy({
+      left: 300,
+      behavior: 'smooth',
+    });
+    this.nextSlideEvent.emit();
   }
 
   private updateNavigation() {
@@ -73,5 +82,10 @@ export class CarouselComponent implements AfterViewInit {
 
   getPosterUrl(imgSrc: string): string {
     return `https://image.tmdb.org/t/p/w500${imgSrc}`;
+  }
+
+  addToMarathon(item: CarouselItem) {
+    this.marathonService.addMovie(item);
+    console.log(`Filme "${item.title}" adicionado à Maratona!`);
   }
 }
