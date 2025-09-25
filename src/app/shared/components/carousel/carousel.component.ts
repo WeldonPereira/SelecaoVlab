@@ -21,6 +21,7 @@ export interface CarouselItem {
   rating?: number;
   vote?: number;
   character?: string;
+  releaseDate?: string;
   duration?: number;
 }
 
