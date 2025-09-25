@@ -17,6 +17,19 @@ export class MovieApiService {
       `${this.apiUrl}/movie/popular?api_key=${this.apiKey}&page=${page}&language=pt-BR`
     );
   }
+
+  getTopRatedMovies(page = 1): Observable<MovieResponse> {
+    return this.http.get<MovieResponse>(
+      `${this.apiUrl}/movie/top_rated?api_key=${this.apiKey}&page=${page}&language=pt-BR`
+    );
+  }
+
+  getUpcomingMovies(page = 1): Observable<MovieResponse> {
+    return this.http.get<MovieResponse>(
+      `${this.apiUrl}/movie/upcoming?api_key=${this.apiKey}&page=${page}&language=pt-BR`
+    );
+  }
+
   searchMovies(query: string, page = 1): Observable<MovieResponse> {
     return this.http.get<MovieResponse>(
       `${this.apiUrl}/search/movie?api_key=${this.apiKey}&query=${query}&page=${page}&language=pt-BR`
