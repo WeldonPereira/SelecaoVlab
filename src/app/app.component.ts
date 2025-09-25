@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MovieFacade } from './features/movies/services/movie.facade';
@@ -9,7 +9,7 @@ import { MarathonDropdownComponent } from '@shared/components/marathon/marathon-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, MarathonDropdownComponent],
+  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, MarathonDropdownComponent, RouterModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
