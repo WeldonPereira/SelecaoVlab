@@ -1,8 +1,15 @@
 <div class="marathon-dropdown">
   <button (click)="toggleDropdown()" class="marathon-btn">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      fill="currentColor"
+      viewBox="0 0 16 16"
+    >
       <path
-        d="M1 2.5A.5.5 0 0 1 1.5 2h13a.5.5 0 0 1 .5.5V6h-14V2.5zM0 6v7.5A.5.5 0 0 0 .5 14h15a.5.5 0 0 0 .5-.5V6H0zm2 1h2v5H2V7zm3 0h2v5H5V7zm3 0h2v5H8V7zm3 0h2v5h-2V7z" />
+        d="M1 2.5A.5.5 0 0 1 1.5 2h13a.5.5 0 0 1 .5.5V6h-14V2.5zM0 6v7.5A.5.5 0 0 0 .5 14h15a.5.5 0 0 0 .5-.5V6H0zm2 1h2v5H2V7zm3 0h2v5H5V7zm3 0h2v5H8V7zm3 0h2v5h-2V7z"
+      />
     </svg>
     Maratona de Filmes ({{ totalDuration }})
   </button>
@@ -10,13 +17,32 @@
   <div class="dropdown-menu" *ngIf="open">
     <ng-container *ngIf="(movies$ | async)?.length; else emptyState">
       <ul>
-        <li *ngFor="let movie of movies$ | async">
+        <li
+          *ngFor="let movie of movies$ | async"
+          class="movie-item"
+          (click)="goToMovieDetail(movie.id)"
+        >
+          <img
+            *ngIf="movie.imgSrc"
+            [src]="'https://image.tmdb.org/t/p/w92' + movie.imgSrc"
+            alt="{{ movie.title }}"
+            class="movie-img"
+          />
           <span class="movie-title">{{ movie.title || movie.name }}</span>
-          <button (click)="removeMovie(movie.id)" class="remove-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-              viewBox="0 0 16 16">
+          <button
+            (click)="removeMovie(movie.id); $event.stopPropagation()"
+            class="remove-btn"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
               <path
-                d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm3.354-9.354a.5.5 0 0 1 0 .708L8.707 9l2.647 2.646a.5.5 0 0 1-.708.708L8 9.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 9 4.646 6.354a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm3.354-9.354a.5.5 0 0 1 0 .708L8.707 9l2.647 2.646a.5.5 0 0 1-.708.708L8 9.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 9 4.646 6.354a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708 0z"
+              />
             </svg>
           </button>
         </li>
@@ -24,9 +50,7 @@
     </ng-container>
 
     <ng-template #emptyState>
-      <div class="empty-message">
-        Nenhum filme adicionado à maratona
-      </div>
+      <div class="empty-message">Nenhum filme adicionado à maratona</div>
     </ng-template>
   </div>
 </div>

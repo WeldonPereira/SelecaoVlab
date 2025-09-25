@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule, AsyncPipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { MarathonService } from '../../../features/movies/services/marathon.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { MarathonService } from '../../../features/movies/services/marathon.serv
 })
 export class MarathonDropdownComponent {
   private marathonService = inject(MarathonService);
+  private router = inject(Router);
 
   movies$ = this.marathonService.movies$;
   open = false;
@@ -25,5 +27,10 @@ export class MarathonDropdownComponent {
 
   get totalDuration(): string {
     return this.marathonService.getTotalDuration();
+  }
+
+  goToMovieDetail(movieId: number) {
+    this.router.navigate(['/movies', movieId]);
+    this.open = false;
   }
 }
