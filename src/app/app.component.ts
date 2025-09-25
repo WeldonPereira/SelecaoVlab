@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MovieFacade } from './features/movies/services/movie.facade';
@@ -9,25 +9,33 @@ import { MarathonDropdownComponent } from '@shared/components/marathon/marathon-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule, CommonModule, MarathonDropdownComponent, RouterModule],
+  imports: [
+    RouterOutlet,
+    ReactiveFormsModule,
+    CommonModule,
+    MarathonDropdownComponent,
+    RouterModule,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'Filmes';
   searchControl = new FormControl('');
+  private facade = inject(MovieFacade);
+  private router = inject(Router);
 
-  constructor(private facade: MovieFacade) {
+  constructor() {
     this.searchControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged()
-      )
-      .subscribe(query => {
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((query) => {
         if (query) {
           this.facade.searchMovies(query);
         } else {
+          this.facade.clearSearch();
           this.facade.loadPopularMovies();
+          this.facade.loadTopRatedMovies();
+          this.facade.loadUpcomingMovies();
         }
       });
   }
