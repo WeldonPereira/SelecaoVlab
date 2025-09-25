@@ -1,7 +1,10 @@
 
 # SelecaoVlab
 
-https://github.com/user-attachments/assets/adc99dfd-2334-44b4-99d5-f7f4bf4c34de
+
+https://github.com/user-attachments/assets/5b79f432-bace-4f2c-ad50-9a37e16757d2
+
+
 
 
 
