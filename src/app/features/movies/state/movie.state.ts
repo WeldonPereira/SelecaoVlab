@@ -4,6 +4,9 @@ import { Movie } from '../types/movie.type';
 
 export interface MovieState {
   movies: Movie[];
+  popularMovies: Movie[];
+  topRatedMovies: Movie[];
+  upcomingMovies: Movie[];
   loading: boolean;
   error: string | null;
   page: number;
@@ -13,6 +16,9 @@ export interface MovieState {
 
 const initialState: MovieState = {
   movies: [],
+  popularMovies: [],
+  topRatedMovies: [],
+  upcomingMovies: [],
   loading: false,
   error: null,
   page: 1,
@@ -38,6 +44,18 @@ export class MovieStateService {
 
   setMovies(movies: Movie[]) {
     this.setState({ movies });
+  }
+
+  setPopularMovies(movies: Movie[]) {
+    this.setState({ popularMovies: movies });
+  }
+
+  setTopRatedMovies(movies: Movie[]) {
+    this.setState({ topRatedMovies: movies });
+  }
+
+  setUpcomingMovies(movies: Movie[]) {
+    this.setState({ upcomingMovies: movies });
   }
 
   setLoading(loading: boolean) {
