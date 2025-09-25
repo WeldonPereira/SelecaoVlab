@@ -1,25 +1,39 @@
 <div class="movie-list-container">
-  <app-carousel
-    [title]="'Filmes populares'"
-    [items]="popularMovies"
-    [isExplore]="false"
-    [exploreLink]="'/movies/popular'"
-  >
-  </app-carousel>
+  <ng-container *ngIf="state.movies$ | async as state">
+    <ng-container *ngIf="state.movies.length > 0; else normalCarousels">
+      <app-carousel
+        [title]="'Filmes do ' + searchQuery"
+        [items]="popularMovies"
+        [isExplore]="false"
+        [exploreLink]="'/movies/popular'"
+      >
+      </app-carousel>
+    </ng-container>
+  </ng-container>
 
-  <app-carousel
-    [title]="'Filmes mais bem avaliados'"
-    [items]="topRatedMovies"
-    [isExplore]="false"
-    [exploreLink]="'/movies/top-rated'"
-  >
-  </app-carousel>
+  <ng-template #normalCarousels>
+    <app-carousel
+      [title]="'Filmes populares'"
+      [items]="popularMovies"
+      [isExplore]="false"
+      [exploreLink]="'/movies/popular'"
+    >
+    </app-carousel>
 
-  <app-carousel
-    [title]="'Filmes mais recentes'"
-    [items]="upcomingMovies"
-    [isExplore]="false"
-    [exploreLink]="'/movies/upcoming'"
-  >
-  </app-carousel>
+    <app-carousel
+      [title]="'Filmes mais bem avaliados'"
+      [items]="topRatedMovies"
+      [isExplore]="false"
+      [exploreLink]="'/movies/top-rated'"
+    >
+    </app-carousel>
+
+    <app-carousel
+      [title]="'Filmes mais recentes'"
+      [items]="upcomingMovies"
+      [isExplore]="false"
+      [exploreLink]="'/movies/upcoming'"
+    >
+    </app-carousel>
+  </ng-template>
 </div>
