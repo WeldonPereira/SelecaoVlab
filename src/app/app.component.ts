@@ -26,10 +26,17 @@ export class AppComponent {
   private router = inject(Router);
 
   constructor() {
+    this.searchControl.valueChanges;
     this.searchControl.valueChanges
       .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe((query) => {
         if (query) {
+          if (
+            this.router.url.startsWith('/movies/') &&
+            this.router.url !== '/movies'
+          ) {
+            this.router.navigate(['/movies']);
+          }
           this.facade.searchMovies(query);
         } else {
           this.facade.clearSearch();
