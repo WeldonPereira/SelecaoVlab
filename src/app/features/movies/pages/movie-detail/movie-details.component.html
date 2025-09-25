@@ -1,0 +1,13 @@
+<div class="movie-details" *ngIf="movieData">
+  <div class="poster">
+    <img [src]="getPosterUrl(movieData.poster_path)" [alt]="movieData.title" />
+  </div>
+  <div class="info">
+    <h1>{{ movieData.title }}</h1>
+    <p><strong>Gênero:</strong> {{ genresString }}</p>
+    <p><strong>Lançamento:</strong> {{ movieData.release_date }}</p>
+    <p><strong>Duração:</strong> {{ movieData.runtime }} min</p>
+    <p><strong>Nota:</strong> {{ movieData.vote_average }}</p>
+    <p class="overview">{{ movieData.overview }}</p>
+  </div>
+</div>
